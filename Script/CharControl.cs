@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharControl : MonoBehaviour
@@ -28,7 +29,7 @@ public class CharControl : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {        
         rb = gameObject.GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -41,6 +42,7 @@ public class CharControl : MonoBehaviour
         if (GlobalData.can_walk)
         {
             Move();
+            Call_SaveLoad();
         }
         DialogCall();
     }
@@ -50,6 +52,16 @@ public class CharControl : MonoBehaviour
         if (GlobalData.can_walk)
         {
             Rotate();
+        }
+    }
+
+    private void Call_SaveLoad()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GlobalData.scene_index = SceneManager.GetActiveScene().buildIndex;
+            GlobalData.now_position = gameObject.transform.position;
+            SceneManager.LoadScene("Save_Load");
         }
     }
 
