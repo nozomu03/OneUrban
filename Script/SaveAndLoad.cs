@@ -7,16 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class SaveAndLoad : MonoBehaviour
 {
+    private string path;
     // Start is called before the first frame update   
-    private string path;    
-    public void Init()
+
+    private void Start()
     {
         path = Application.persistentDataPath + "/save.dat";
     }
-
-    public void Save()
-    {                
-        GameData gameData = new GameData(GlobalData.scene_index, GlobalData.now_position);
+public void Save()
+    {
+        Debug.Log("Hello");        
+        GameData gameData = new GameData(GlobalData.scene_index, GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z);
         real_Save(gameData);
     }
 
@@ -24,6 +25,7 @@ public class SaveAndLoad : MonoBehaviour
     {
         BinaryFormatter format = new BinaryFormatter();
         FileStream save = File.Create(path);
+        Debug.Log(gameData.ToString());
         format.Serialize(save, gameData);
         save.Close();
     }
@@ -38,7 +40,8 @@ public class SaveAndLoad : MonoBehaviour
         }
         else
         {
-            GlobalData.loaded_data = new GameData(0, new Vector3(0, 0, 0));
+            GlobalData.loaded_data = new GameData(0, 0, 0, 0);
         }
+        Debug.Log(GlobalData.loaded_data.ToString());
     }
 }

@@ -5,11 +5,19 @@ using UnityEditor;
 public class GameData
 {
     public int now_sceneIndex = 0;
-    public Vector3 now_location = new Vector3(0, 0, 0);
-
-    public GameData(int now_sceneIndex, Vector3 now_location)
+    public float player_x = 0.0f;
+    public float player_y = 0.0f;
+    public float player_z = 0.0f;
+    public GameData(int now_sceneIndex, float player_x, float player_y, float player_z)
     {
         this.now_sceneIndex = now_sceneIndex;
-        this.now_location = now_location;
+        this.player_x = player_x;
+        this.player_y = player_y;
+        this.player_z = player_z;
+    }
+
+    public override string ToString()
+    {
+        return now_sceneIndex + ":" + player_x + ":" + player_y + ":" + player_z;
     }
 }

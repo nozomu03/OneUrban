@@ -31,8 +31,8 @@ public class CharControl : MonoBehaviour
     void Start()
     {        
         rb = gameObject.GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     // Update is called once per frame
