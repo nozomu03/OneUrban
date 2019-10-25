@@ -16,7 +16,8 @@ public class SaveAndLoad : MonoBehaviour
     }
 public void Save()
     {
-        Debug.Log("Hello");        
+        Debug.Log("Hello");
+        GlobalData.now_position = GlobalData.temp_position;
         GameData gameData = new GameData(GlobalData.scene_index, GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z);
         real_Save(gameData);
     }
@@ -36,12 +37,21 @@ public void Save()
         {
             BinaryFormatter format = new BinaryFormatter();
             FileStream save = File.Open(path, FileMode.Open);
-            GlobalData.loaded_data = (GameData)format.Deserialize(save);            
+            GlobalData.loaded_data = (GameData)format.Deserialize(save);
+            save.Close();
+            Debug.Log("data: " + GlobalData.loaded_data.ToString());            
+            SceneManager.LoadScene(GlobalData.loaded_data.now_sceneIndex);
         }
         else
         {
-            GlobalData.loaded_data = new GameData(0, 0, 0, 0);
+            GlobalData.loaded_data = new GameData(1, -232.1f, 0, -104.9f);
+            SceneManager.LoadScene(1);            
         }
-        Debug.Log(GlobalData.loaded_data.ToString());
+        GlobalData.now_position = new Vector3(GlobalData.loaded_data.player_x, GlobalData.loaded_data.player_y, GlobalData.loaded_data.player_z);
+    }
+
+    public void NewGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }

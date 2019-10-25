@@ -29,7 +29,9 @@ public class CharControl : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {        
+    {
+        Debug.Log("CharCon: " + GlobalData.now_position.x + ":" + GlobalData.now_position.y + ":" + GlobalData.now_position.z);
+        gameObject.transform.position = new Vector3(GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z);
         rb = gameObject.GetComponent<Rigidbody>();
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -60,7 +62,7 @@ public class CharControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GlobalData.scene_index = SceneManager.GetActiveScene().buildIndex;
-            GlobalData.now_position = gameObject.transform.position;
+            GlobalData.temp_position = gameObject.transform.position;
             SceneManager.LoadScene("Save_Load");
         }
     }
