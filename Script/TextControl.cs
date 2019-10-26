@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,9 +68,15 @@ public class TextControl : MonoBehaviour
         int i;
         for(i=0; i <= now_string.Length; i++)
         {
+            if (i < now_string.Length && now_string[i].Equals('p'))
+            {
+                now_string = now_string.Replace("p", "");
+                yield return new WaitForSeconds(1.0f);
+            }
             temp = now_string.Substring(0, i);
-            output.text = temp;            
+            output.text = temp;
             yield return new WaitForSeconds(0.1f);
+        
         }
         if (i == now_string.Length + 1)
         {

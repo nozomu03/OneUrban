@@ -493,8 +493,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 60
@@ -627,7 +625,7 @@ PrefabInstance:
     - target: {fileID: 3875197891982282393, guid: 6b5090cb4f1e9ee44a7f2fef6c23a900,
         type: 3}
       propertyPath: dialogs.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3875197891982282393, guid: 6b5090cb4f1e9ee44a7f2fef6c23a900,
         type: 3}
@@ -659,6 +657,16 @@ PrefabInstance:
       propertyPath: dialogs.Array.data[0]
       value: 
       objectReference: {fileID: 978193810}
+    - target: {fileID: 3875197891982282393, guid: 6b5090cb4f1e9ee44a7f2fef6c23a900,
+        type: 3}
+      propertyPath: dialogs.Array.data[1]
+      value: 
+      objectReference: {fileID: 2125945487}
+    - target: {fileID: 3875197891982282393, guid: 6b5090cb4f1e9ee44a7f2fef6c23a900,
+        type: 3}
+      propertyPath: nvl_screen
+      value: 
+      objectReference: {fileID: 1152312198}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b5090cb4f1e9ee44a7f2fef6c23a900, type: 3}
 --- !u!1 &816023286
@@ -982,8 +990,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 30
@@ -1039,7 +1045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1152312195
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1078,8 +1084,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 60
@@ -1109,7 +1113,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152312194}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c48233e177f1a904d8ea72007304d8b9, type: 3}
   m_Name: 
@@ -1688,8 +1692,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -1956,6 +1958,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2125945486}
   - component: {fileID: 2125945485}
+  - component: {fileID: 2125945487}
   m_Layer: 0
   m_Name: 2
   m_TagString: Searchable
@@ -1997,6 +2000,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2125945487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125945484}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c48233e177f1a904d8ea72007304d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texts:
+  - "[???]\n\uC57C, p\uC9C4\uC9DC\uB85C \uB6F0\uC5B4\uB0B4\uB838\uB294\uB370?"
+  - "[???]\n\uBCD1\uC2E0"
+  - "[???]\n\uC5B4\uB5BB\uAC8C \uD574\uC57C \uD558\uC9C0... p\uC77C\uB2E8 \uACA8...\uACBD\uCC30\uC5D0
+    \uC5F0\uB77D\uC744...\n"
+  output: {fileID: 978193808}
 --- !u!1 &1952920634013308956
 GameObject:
   m_ObjectHideFlags: 0

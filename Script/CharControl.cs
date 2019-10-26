@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class CharControl : MonoBehaviour
 {
     [SerializeField]
+    private TextControl nvl_screen;
+    [SerializeField]
     private float move_speed = 100f;
     [SerializeField]
     private float rotate_speed = 3f;
@@ -30,11 +32,13 @@ public class CharControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("CharCon: " + GlobalData.now_position.x + ":" + GlobalData.now_position.y + ":" + GlobalData.now_position.z);
+        nvl_screen.gameObject.SetActive(GlobalData.nvl_screen);
+        rotate_speed = GlobalData.rotate_spped;
         gameObject.transform.position = new Vector3(GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z);
         rb = gameObject.GetComponent<Rigidbody>();
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Debug.Log(Cursor.lockState);
     }
 
     // Update is called once per frame
@@ -60,9 +64,11 @@ public class CharControl : MonoBehaviour
     private void Call_SaveLoad()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
+        {            
             GlobalData.scene_index = SceneManager.GetActiveScene().buildIndex;
             GlobalData.temp_position = gameObject.transform.position;
+            GlobalData.nvl_screen = nvl_screen.isActiveAndEnabled;
+            Debug.Log(nvl_screen.isActiveAndEnabled);
             SceneManager.LoadScene("Save_Load");
         }
     }

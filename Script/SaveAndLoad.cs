@@ -4,21 +4,51 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SaveAndLoad : MonoBehaviour
 {
+    private float time = 0.0f;
+    [SerializeField]    
+    private Text text;
     private string path;
     // Start is called before the first frame update   
-
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         path = Application.persistentDataPath + "/save.dat";
     }
-public void Save()
+
+    private void Update()
     {
+        if (text.enabled)
+        {
+            Debug.Log(time);
+            if (time < 3.0f)
+            {
+                time += Time.deltaTime;
+            }
+            else
+            {
+                time = 0.0f;
+                text.enabled = false;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(GlobalData.scene_index);
+        }
+    }  
+
+    public void Save()
+    {
+        time = 0.0f;
         Debug.Log("Hello");
         GlobalData.now_position = GlobalData.temp_position;
-        GameData gameData = new GameData(GlobalData.scene_index, GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z);
+        GameData gameData = new GameData(GlobalData.scene_index, GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z, GlobalData.rotate_spped, GlobalData.nvl_screen);
+        text.enabled = true;
         real_Save(gameData);
     }
 
@@ -44,10 +74,12 @@ public void Save()
         }
         else
         {
-            GlobalData.loaded_data = new GameData(1, -232.1f, 0, -104.9f);
+            GlobalData.loaded_data = new GameData(1, -232.1f, 0, -104.9f, 3.0f, true);
             SceneManager.LoadScene(1);            
         }
         GlobalData.now_position = new Vector3(GlobalData.loaded_data.player_x, GlobalData.loaded_data.player_y, GlobalData.loaded_data.player_z);
+        GlobalData.rotate_spped = GlobalData.loaded_data.rotate_speed;
+        GlobalData.nvl_screen = GlobalData.loaded_data.nvl_screen;
     }
 
     public void NewGame()
