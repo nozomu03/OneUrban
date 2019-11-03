@@ -199,6 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7500913473798108721}
+  - component: {fileID: 555504510403723904}
   m_Layer: 0
   m_Name: deskandchair
   m_TagString: Untagged
@@ -222,6 +223,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &555504510403723904
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839674659641024373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15.488238, y: 13.654282, z: 15.48828}
+  m_Center: {x: -1.7602544, y: -1.5225735, z: -11.509365}
 --- !u!1 &8175429153741249125
 GameObject:
   m_ObjectHideFlags: 0

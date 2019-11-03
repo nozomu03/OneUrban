@@ -15,4 +15,9 @@ public class ButtonControl : MonoBehaviour
     {
         SceneManager.LoadScene("Preference");
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

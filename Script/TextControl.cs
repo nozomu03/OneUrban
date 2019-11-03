@@ -16,7 +16,10 @@ public class TextControl : MonoBehaviour
     int how_many= 0;
     float delay_time = 0.0f;
     string now_string;
-    
+    string temp = null;
+    string cut_string = null;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,9 +36,15 @@ public class TextControl : MonoBehaviour
         //Debug.Log("continue");
         if (!running)
         {
-            //Debug.Log("start");
-                       
-            if (how_many == 0)
+            if(count_limit == 0)
+            {
+                if (output.gameObject.name.Equals("nvl_message"))
+                {
+                    output.gameObject.SetActive(false);
+                    GlobalData.can_walk = true;
+                }
+            }                                  
+            else if (how_many == 0 )
             {
                 now_string = texts[0];
                 CoroutineCaller();
@@ -44,7 +53,7 @@ public class TextControl : MonoBehaviour
             {
                 now_string = texts[how_many];
                 delay_time += Time.deltaTime;
-                if (delay_time >= 3.0)
+                if (delay_time >= 1.0)
                 {
                     delay_time = 0.0f;
                     CoroutineCaller();
@@ -64,16 +73,16 @@ public class TextControl : MonoBehaviour
     {
         running = true;
         GlobalData.can_walk = false;
-        string temp = null;
         int i;
         for(i=0; i <= now_string.Length; i++)
         {
             if (i < now_string.Length && now_string[i].Equals('p'))
             {
-                now_string = now_string.Replace("p", "");
+                cut_string = now_string;
+                now_string = cut_string.Substring(0, i - 1) + " " + cut_string.Substring(i + 1);
                 yield return new WaitForSeconds(1.0f);
             }
-            temp = now_string.Substring(0, i);
+            temp = now_string.Substring(0, i);    
             output.text = temp;
             yield return new WaitForSeconds(0.1f);
         

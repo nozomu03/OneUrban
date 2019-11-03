@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class CharControl : MonoBehaviour
 {
     [SerializeField]
+    private Vector3 next_position;
+    [SerializeField]
     private TextControl nvl_screen;
     [SerializeField]
     private float move_speed = 100f;
@@ -21,12 +23,19 @@ public class CharControl : MonoBehaviour
     [SerializeField]
     private TextControl[] dialogs;
     [SerializeField]
-    private Text seraching;
+    private Text searching;
+    [SerializeField]
+    private int need_search;
+    private int now_search = 0;
     Rigidbody rb;
     float rotate = 0.0f;
     float rotate_limit = 80f;
     float rotate_temp = 0.0f;
     bool search = false;
+    bool end = false;
+    bool list_check = false;
+    List<string> add_checker; 
+    Animator anim;
     GameObject searchable_thing = null;
 
     // Start is called before the first frame update
@@ -34,10 +43,19 @@ public class CharControl : MonoBehaviour
     {
         nvl_screen.gameObject.SetActive(GlobalData.nvl_screen);
         rotate_speed = GlobalData.rotate_spped;
-        gameObject.transform.position = new Vector3(GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z);
+        if (GlobalData.run_mod)
+        {
+            gameObject.transform.position = new Vector3(GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z);
+        }
+        else
+        {
+            GlobalData.run_mod = true;  
+        }
         rb = gameObject.GetComponent<Rigidbody>();
+        anim = gameObject.GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        add_checker = new List<string>();
         Debug.Log(Cursor.lockState);
     }
 
@@ -69,6 +87,7 @@ public class CharControl : MonoBehaviour
             GlobalData.temp_position = gameObject.transform.position;
             GlobalData.nvl_screen = nvl_screen.isActiveAndEnabled;
             Debug.Log(nvl_screen.isActiveAndEnabled);
+            GlobalData.goSet = true;
             SceneManager.LoadScene("Save_Load");
         }
     }
@@ -79,18 +98,26 @@ public class CharControl : MonoBehaviour
         {
             //Debug.Log("H");
             transform.Translate(Vector3.forward * move_speed * Time.deltaTime);
+            anim.SetBool("walking", true);
         }
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.left * move_speed * Time.deltaTime);
+            anim.SetBool("walking", true);
         }
         if(Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector3.right * move_speed * Time.deltaTime);
+            anim.SetBool("walking", true);
         }
         if(Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector3.back * move_speed * Time.deltaTime);
+            anim.SetBool("walking", true);
+        }
+        if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        {
+            anim.SetBool("walking", false);
         }
     }
 
@@ -113,30 +140,67 @@ public class CharControl : MonoBehaviour
 
     private void DialogCall()
     {
+        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
+        if (anim.GetCurrentAnimatorStateInfo(0).shortNameHash == -1259283545)
+        {
+            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.8f)
+            {
+                //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+                anim.SetBool("search", false);
+            }
+        }
         if (search)
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-//                Debug.Log(searchable_thing.name);
-                dialogs[int.Parse(searchable_thing.name)-1].enabled = true;                
+                if (end)
+                {
+                    GlobalData.now_position = next_position;
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
+                else
+                {
+                    anim.SetBool("search", true);
+                    dialogs[int.Parse(searchable_thing.name) - 1].enabled = true;              
+                    foreach (string temp in add_checker)
+                    {
+                        if (temp == searchable_thing.gameObject.name)
+                            list_check = true;
+                    }
+                    if (!list_check)
+                    {
+                        now_search++;
+                        add_checker.Add(searchable_thing.gameObject.name);
+                    }
+                    list_check = false;
+                }                
             }
-        }
+        }        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ingage");
+        Debug.Log("ingage");        
         if (other.gameObject.tag == "Searchable")
         {
-            seraching.gameObject.SetActive(true);
+            searching.gameObject.SetActive(true);
             searchable_thing = other.gameObject;
             search = true;
+        }
+        else if(other.gameObject.tag == "mapend")
+        {
+            if (now_search >= need_search)
+            {
+                searching.gameObject.SetActive(true);
+                end = true;
+                search = true;                
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        seraching.gameObject.SetActive(false);
+        searching.gameObject.SetActive(false);
         searchable_thing = null;
         search = false;
     }

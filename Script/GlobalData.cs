@@ -10,5 +10,7 @@ public class GlobalData
     public static int scene_index = 0;
     public static bool nvl_screen = true;
     public static GameData loaded_data = null;
-    public static float rotate_spped = 3f;    
+    public static float rotate_spped = 3f;
+    public static bool goSet = false;
+    public static bool run_mod = false;
 }

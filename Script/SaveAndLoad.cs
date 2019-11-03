@@ -15,6 +15,7 @@ public class SaveAndLoad : MonoBehaviour
     // Start is called before the first frame update   
     private void Start()
     {
+        GlobalData.now_position = GlobalData.temp_position;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         path = Application.persistentDataPath + "/save.dat";
@@ -46,7 +47,6 @@ public class SaveAndLoad : MonoBehaviour
     {
         time = 0.0f;
         Debug.Log("Hello");
-        GlobalData.now_position = GlobalData.temp_position;
         GameData gameData = new GameData(GlobalData.scene_index, GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z, GlobalData.rotate_spped, GlobalData.nvl_screen);
         text.enabled = true;
         real_Save(gameData);
