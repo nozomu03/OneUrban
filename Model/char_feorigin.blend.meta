@@ -51,7 +51,22 @@ ModelImporter:
   - first:
       74: -1503245801904815977
     second: Cylinder|taba_idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 8828a9dce9361384fa1dc2e0094bb58c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 8828a9dce9361384fa1dc2e0094bb58c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 5993d69f21d0d0845b009493afcc9829, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
