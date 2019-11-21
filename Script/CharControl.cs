@@ -37,6 +37,8 @@ public class CharControl : MonoBehaviour
     List<string> add_checker; 
     Animator anim;
     GameObject searchable_thing = null;
+    bool frag = false;
+    int frag_count = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -161,18 +163,26 @@ public class CharControl : MonoBehaviour
                 else
                 {
                     anim.SetBool("search", true);
-                    dialogs[int.Parse(searchable_thing.name) - 1].enabled = true;              
-                    foreach (string temp in add_checker)
+                    dialogs[int.Parse(searchable_thing.name) - 1].enabled = true;
+                    if (frag)
                     {
-                        if (temp == searchable_thing.gameObject.name)
-                            list_check = true;
+                        GlobalData.frag_check.Insert(frag_count, true);
+                        frag = false;
                     }
-                    if (!list_check)
+                    else
                     {
-                        now_search++;
-                        add_checker.Add(searchable_thing.gameObject.name);
+                        foreach (string temp in add_checker)
+                        {
+                            if (temp == searchable_thing.gameObject.name)
+                                list_check = true;
+                        }
+                        if (!list_check)
+                        {
+                            now_search++;
+                            add_checker.Add(searchable_thing.gameObject.name);
+                        }
+                        list_check = false;
                     }
-                    list_check = false;
                 }                
             }
         }        
@@ -186,6 +196,15 @@ public class CharControl : MonoBehaviour
             searching.gameObject.SetActive(true);
             searchable_thing = other.gameObject;
             search = true;
+        }
+        else if(other.gameObject.tag == "frag")
+        {
+            searching.gameObject.SetActive(true);
+            searchable_thing = other.gameObject;
+            frag_count = int.Parse(other.gameObject.name);
+            frag = true;
+            search = true;
+
         }
         else if(other.gameObject.tag == "mapend")
         {

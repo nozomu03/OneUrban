@@ -47,7 +47,7 @@ public class SaveAndLoad : MonoBehaviour
     {
         time = 0.0f;
         Debug.Log("Hello");
-        GameData gameData = new GameData(GlobalData.scene_index, GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z, GlobalData.rotate_spped, GlobalData.nvl_screen);
+        GameData gameData = new GameData(GlobalData.scene_index, GlobalData.now_position.x, GlobalData.now_position.y, GlobalData.now_position.z, GlobalData.rotate_spped, GlobalData.nvl_screen, GlobalData.frag_check);
         text.enabled = true;
         real_Save(gameData);
     }
@@ -74,12 +74,13 @@ public class SaveAndLoad : MonoBehaviour
         }
         else
         {
-            GlobalData.loaded_data = new GameData(1, -232.1f, 0, -104.9f, 3.0f, true);
+            GlobalData.loaded_data = new GameData(1, -232.1f, 0, -104.9f, 3.0f, true, new List<bool>() { false, false, false, false, false, false, false });
             SceneManager.LoadScene(1);            
         }
         GlobalData.now_position = new Vector3(GlobalData.loaded_data.player_x, GlobalData.loaded_data.player_y, GlobalData.loaded_data.player_z);
         GlobalData.rotate_spped = GlobalData.loaded_data.rotate_speed;
         GlobalData.nvl_screen = GlobalData.loaded_data.nvl_screen;
+        GlobalData.frag_check = GlobalData.loaded_data.frag_check;
     }
 
     public void NewGame()

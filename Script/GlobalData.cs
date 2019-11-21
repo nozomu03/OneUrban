@@ -13,4 +13,5 @@ public class GlobalData
     public static float rotate_spped = 3f;
     public static bool goSet = false;
     public static bool run_mod = false;
+    public static List<bool> frag_check = new List<bool>() { false, false, false, false, false, false, false};
 }
