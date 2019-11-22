@@ -11,6 +11,8 @@ public class TextControl : MonoBehaviour
     string[] texts;
     [SerializeField]
     Text output;
+    [SerializeField]
+    private GameObject[] audio_appear = null;
     bool running = false;
     int count_limit = 0;
     int how_many= 0;
@@ -18,7 +20,7 @@ public class TextControl : MonoBehaviour
     string now_string;
     string temp = null;
     string cut_string = null;
-
+    private int count = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -75,12 +77,23 @@ public class TextControl : MonoBehaviour
         GlobalData.can_walk = false;
         int i;
         for(i=0; i <= now_string.Length; i++)
-        {
+        {            
             if (i < now_string.Length && now_string[i].Equals('p'))
             {
                 cut_string = now_string;
                 now_string = cut_string.Substring(0, i - 1) + " " + cut_string.Substring(i + 1);
                 yield return new WaitForSeconds(1.0f);
+            }
+            else if(i < now_string.Length && now_string[i].Equals('s'))
+            {
+                Debug.Log("sound system ingage");
+                cut_string = now_string;
+                now_string = cut_string.Substring(0, i - 1) + " " + cut_string.Substring(i + 1);
+                GlobalData.audios[count].Play();
+                yield return new WaitForSeconds(3.0f);
+                GlobalData.audios[count].Stop();
+                audio_appear[count].SetActive(true);
+                count++;
             }
             temp = now_string.Substring(0, i);    
             output.text = temp;
@@ -104,5 +117,5 @@ public class TextControl : MonoBehaviour
             }
         }
 
-    }
+    }    
 }

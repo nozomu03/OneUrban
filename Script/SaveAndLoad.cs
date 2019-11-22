@@ -14,7 +14,7 @@ public class SaveAndLoad : MonoBehaviour
     private string path;
     // Start is called before the first frame update   
     private void Start()
-    {
+    {        
         GlobalData.now_position = GlobalData.temp_position;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
@@ -69,7 +69,7 @@ public class SaveAndLoad : MonoBehaviour
             FileStream save = File.Open(path, FileMode.Open);
             GlobalData.loaded_data = (GameData)format.Deserialize(save);
             save.Close();
-            Debug.Log("data: " + GlobalData.loaded_data.ToString());            
+            Debug.Log(GlobalData.loaded_data.ToString());             
             SceneManager.LoadScene(GlobalData.loaded_data.now_sceneIndex);
         }
         else

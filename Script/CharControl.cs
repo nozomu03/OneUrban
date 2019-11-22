@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,7 +26,12 @@ public class CharControl : MonoBehaviour
     private Text searching;
     [SerializeField]
     private int need_search;
+    [SerializeField]
+    private TextControl now_frag = null;
+    [SerializeField]
+    private AudioSource[] audio = null;
     private int now_search = 0;
+    private int frag_count = 0;
     Rigidbody rb;
     float rotate = 0.0f;
     float rotate_limit = 80f;
@@ -38,11 +43,12 @@ public class CharControl : MonoBehaviour
     Animator anim;
     GameObject searchable_thing = null;
     bool frag = false;
-    int frag_count = 0;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        GlobalData.audios = audio;
         nvl_screen.gameObject.SetActive(GlobalData.nvl_screen);
         rotate_speed = GlobalData.rotate_spped;
         if (GlobalData.run_mod)
@@ -163,14 +169,16 @@ public class CharControl : MonoBehaviour
                 else
                 {
                     anim.SetBool("search", true);
-                    dialogs[int.Parse(searchable_thing.name) - 1].enabled = true;
                     if (frag)
                     {
-                        GlobalData.frag_check.Insert(frag_count, true);
+                        now_frag.enabled = true;
+                        GlobalData.frag_check.Insert(frag_count - 1, true);
+                        Debug.Log(GlobalData.frag_check.ToArray()[0]);
                         frag = false;
                     }
                     else
                     {
+                        dialogs[int.Parse(searchable_thing.name) - 1].enabled = true;
                         foreach (string temp in add_checker)
                         {
                             if (temp == searchable_thing.gameObject.name)

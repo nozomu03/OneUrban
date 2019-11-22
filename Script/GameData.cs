@@ -26,6 +26,11 @@ public class GameData
 
     public override string ToString()
     {
-        return now_sceneIndex + ":" + player_x + ":" + player_y + ":" + player_z;
+        string return_thing = "";
+        foreach(bool temp in frag_check)
+        {
+            return_thing = return_thing + ":" + temp;
+        }
+        return return_thing;
     }
 }

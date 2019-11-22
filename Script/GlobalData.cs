@@ -14,4 +14,5 @@ public class GlobalData
     public static bool goSet = false;
     public static bool run_mod = false;
     public static List<bool> frag_check = new List<bool>() { false, false, false, false, false, false, false};
+    public static AudioSource[] audios = null;
 }
