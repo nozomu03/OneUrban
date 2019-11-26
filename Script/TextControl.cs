@@ -111,9 +111,8 @@ public class TextControl : MonoBehaviour
                 }
                 GlobalData.can_walk = true;
                 output.text = "";
-                this.enabled = false;
-                how_many = 0;
-                // this.enabled = false;
+                Destroy(this);
+                how_many = 0;                
             }
         }
 

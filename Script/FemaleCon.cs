@@ -56,6 +56,7 @@ public class FemaleCon : MonoBehaviour
             else
             {
                 anim.SetBool("walking", false);
+                trigger[0].gameObject.tag = "Searchable";
             }
         }
     }
